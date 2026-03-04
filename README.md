@@ -107,6 +107,21 @@ npx hardhat run scripts/deploy.ts --network arcTestnet
 
 > ⚠️ **Note**: Arc Testnet uses USDC as native gas token (18 decimals). The ERC-20 interface above uses 6 decimals.
 
+## Deploy to Vercel
+
+The easiest way to deploy this application is using the [Vercel Platform](https://vercel.com/new).
+
+1. Push your code to a GitHub repository (done).
+2. Go to [Vercel.com](https://vercel.com) and sign in with GitHub.
+3. Click **Add New** > **Project**.
+4. Import your `ArcReactor` repository.
+5. In the **Environment Variables** section, add your Thirdweb API key:
+   - Name: `NEXT_PUBLIC_THIRDWEB_CLIENT_ID`
+   - Value: `your_client_id_here`
+6. Click **Deploy**.
+
+Vercel will automatically build and deploy your Next.js application edge-ready. Any future pushes to the `main` branch will automatically trigger a new deployment.
+
 ## Resources
 
 - [Arc Network Docs](https://docs.arc.network/arc/concepts/welcome-to-arc)
