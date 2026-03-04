@@ -22,9 +22,9 @@ export async function getAxelarQuote(params: QuoteParams): Promise<RouteQuote> {
     // Simulate API latency
     await new Promise((r) => setTimeout(r, 1200 + Math.random() * 800));
 
-    // Axelar: moderate fees, supports most chains
-    const bridgeFee = params.amount * 0.0015 + 1.0; // 0.15% + $1.00 base
-    const gasCostUSD = 1.5 + Math.random() * 1.0; // $1.50-$2.50
+    // Axelar: simulated proportional fees for demo
+    const bridgeFee = params.amount * 0.0015; // 0.15%
+    const gasCostUSD = params.amount * 0.0020; // 0.20%
     const slippage = params.amount * 0.0008; // 0.08%
 
     const netOutput = params.amount - bridgeFee - gasCostUSD - slippage;

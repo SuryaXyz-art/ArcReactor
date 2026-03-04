@@ -22,9 +22,9 @@ export async function getLayerZeroQuote(params: QuoteParams): Promise<RouteQuote
     // Simulate API latency
     await new Promise((r) => setTimeout(r, 1000 + Math.random() * 600));
 
-    // LayerZero has slightly higher fees but competitive for smaller amounts
-    const bridgeFee = params.amount * 0.002 + 0.3; // 0.2% + $0.30 base
-    const gasCostUSD = 1.2 + Math.random() * 0.8; // $1.20-$2.00
+    // LayerZero: simulated proportional fees for demo
+    const bridgeFee = params.amount * 0.002; // 0.2%
+    const gasCostUSD = params.amount * 0.0015; // 0.15%
     const slippage = params.amount * 0.001; // 0.1%
 
     const netOutput = params.amount - bridgeFee - gasCostUSD - slippage;

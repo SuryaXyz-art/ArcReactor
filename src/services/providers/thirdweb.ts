@@ -44,8 +44,8 @@ export async function getThirdwebQuote(params: QuoteParams): Promise<RouteQuote>
         destinationAmount = Number(quote.destinationAmount) / 1e18;
     } catch (error) {
         console.warn("Thirdweb Bridge SDK unsupported route, using estimated fallback:", error);
-        destinationAmount = params.amount * 0.999 - 0.5; // Estimated 0.1% slippage + fee
-        gasCostUSD = 0.5;
+        destinationAmount = params.amount * 0.998; // Estimated 0.2% total fees
+        gasCostUSD = params.amount * 0.0005; // 0.05%
     }
 
     const bridgeFee = Math.max(originAmount - destinationAmount - gasCostUSD, 0);
