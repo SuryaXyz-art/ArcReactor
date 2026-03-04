@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Bridge, toWei, NATIVE_TOKEN_ADDRESS } from "thirdweb";
+import { Bridge, NATIVE_TOKEN_ADDRESS } from "thirdweb";
 import { thirdwebClient } from "@/lib/thirdweb";
 
 // Bridge quote API route using thirdweb Universal Bridge (native token)
@@ -29,14 +29,14 @@ export async function GET(request: NextRequest) {
         const originChainId = parseInt(sourceChain, 10);
         const destinationChainId = parseInt(destChain, 10);
 
-        const sellAmountWei = toWei(numAmount.toString());
+        const amountWei = BigInt(Math.floor(numAmount * 1e18));
 
         const quote = await Bridge.Sell.quote({
             originChainId,
             originTokenAddress: NATIVE_TOKEN_ADDRESS,
             destinationChainId,
             destinationTokenAddress: NATIVE_TOKEN_ADDRESS,
-            sellAmountWei,
+            amount: amountWei,
             client: thirdwebClient,
         });
 

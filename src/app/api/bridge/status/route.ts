@@ -19,7 +19,7 @@ export async function GET(request: NextRequest) {
 
     try {
         const status = await Bridge.status({
-            transactionHash: txHash,
+            transactionHash: txHash as `0x${string}`,
             chainId,
             client: thirdwebClient,
         });

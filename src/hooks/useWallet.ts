@@ -40,9 +40,9 @@ export function useWallet() {
         if (typeof window === "undefined") return null;
 
         // Handle multiple injected providers (e.g. Brave + MetaMask)
-        const anyWindow = window as any;
+        const anyWindow = window as { ethereum?: { providers?: EthereumProvider[], isMetaMask?: boolean } & EthereumProvider };
         if (anyWindow.ethereum?.providers) {
-            const mmProvider = anyWindow.ethereum.providers.find((p: any) => p.isMetaMask);
+            const mmProvider = anyWindow.ethereum.providers.find((p) => p.isMetaMask);
             if (mmProvider) return mmProvider;
         }
 

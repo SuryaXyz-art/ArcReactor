@@ -4,7 +4,7 @@ import React from "react";
 import { useBridgeStore, type RouteQuote } from "@/store/bridgeStore";
 import { CHAINS } from "@/lib/constants";
 import { formatNumber, formatUSD, generateId } from "@/lib/utils";
-import { BrowserProvider } from "ethers";
+import { BrowserProvider, Eip1193Provider } from "ethers";
 import { Bridge, NATIVE_TOKEN_ADDRESS } from "thirdweb";
 import { thirdwebClient } from "@/lib/thirdweb";
 import {
@@ -125,7 +125,7 @@ export default function RouteComparison() {
         try {
             if (typeof window === "undefined") return;
 
-            const anyWindow = window as any;
+            const anyWindow = window as { ethereum?: Eip1193Provider };
             const ethereum = anyWindow.ethereum;
 
             if (!ethereum) {
@@ -164,7 +164,7 @@ export default function RouteComparison() {
 
             // Execute the transaction(s) returned by the bridge.
             // preparedSell may contain a single transaction for most routes.
-            const txs = (preparedSell as any).transactions ?? [];
+            const txs = (preparedSell as { transactions?: { to: string, data: string, value: bigint }[] }).transactions ?? [];
             let lastTxHash: string | null = null;
 
             for (const txData of txs) {
@@ -301,10 +301,10 @@ function BridgeProgress() {
                             <div
                                 key={step.key}
                                 className={`progress-step ${idx < currentIdx
-                                        ? "done"
-                                        : idx === currentIdx
-                                            ? "active"
-                                            : "pending"
+                                    ? "done"
+                                    : idx === currentIdx
+                                        ? "active"
+                                        : "pending"
                                     }`}
                             >
                                 <span className="step-icon">

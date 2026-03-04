@@ -4,7 +4,7 @@
 import { BRIDGE_PROVIDERS } from "@/lib/constants";
 import { generateId } from "@/lib/utils";
 import type { RouteQuote } from "@/store/bridgeStore";
-import { Bridge, toWei, NATIVE_TOKEN_ADDRESS } from "thirdweb";
+import { Bridge, NATIVE_TOKEN_ADDRESS } from "thirdweb";
 import { thirdwebClient } from "@/lib/thirdweb";
 
 interface QuoteParams {
@@ -25,12 +25,12 @@ export async function getThirdwebQuote(params: QuoteParams): Promise<RouteQuote>
     const sellAmountWei = BigInt(Math.floor(params.amount * 1e18));
 
     // Call thirdweb Bridge.Sell.quote to get a real route
-        const quote = await Bridge.Sell.quote({
+    const quote = await Bridge.Sell.quote({
         originChainId: params.sourceChain,
         originTokenAddress: NATIVE_TOKEN_ADDRESS,
         destinationChainId: params.destChain,
         destinationTokenAddress: NATIVE_TOKEN_ADDRESS,
-            sellAmountWei,
+        amount: sellAmountWei,
         client: thirdwebClient,
     });
 
